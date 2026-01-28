@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 2 PHP - GESTION PANIER E-COMMERCE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Monaco&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Monaco', system-ui, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 1.8em;
+            padding: 60px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        #resultats {
+            animation: fadeIn 0.8s ease-out;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error {
+            background: rgba(255, 82, 82, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid rgba(255, 82, 82, 0.5);
+        }
+
+        .error h2 {
+            margin-bottom: 15px;
+            font-size: 2em;
+        }
+
+        .error code {
+            background: rgba(0,0,0,0.4);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            display: inline-block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EXERCICES PHP - GESTION PANIER E-COMMERCE</h1>
+
+        <div id="resultats" class="loading">
+            Chargement des résultats depuis ex2.php...
+        </div>
+    </div>
+
+    <script>
+        fetch('ex2.php')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Impossible de charger ex2.php');
+                }
+                return response.text();
+            })
+            .then(data => {
+                // Affiche les résultats du PHP dans la div #resultats
+                document.getElementById('resultats').innerHTML = data;
+            })
+            .catch(error => {
+                // En cas d'erreur
+                document.getElementById('resultats').innerHTML = 
+                    '<div class="error">' +
+                    '<h2>Erreur de chargement</h2>' +
+                    '<p>Impossible de charger <strong>ex2.php</strong></p>' +
+                    '<p style="margin-top: 20px;">Vérifie que :</p>' +
+                    '<ul style="text-align: left; margin: 20px auto; max-width: 500px;">' +
+                    '<li>Le fichier ex2.php est dans le même dossier</li>' +
+                    '<li>Le serveur PHP est lancé</li>' +
+                    '<li>Tu accèdes via localhost (pas file://)</li>' +
+                    '</ul>' +
+                    '<p style="margin-top: 20px;"><strong>Commande :</strong></p>' +
+                    '<code>php -S localhost:8000</code>' +
+                    '</div>';
+                console.error('Erreur:', error);
+            });
+    </script>
+</body>
+</html>
