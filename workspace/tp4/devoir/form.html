@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Réservation de Voyage</title>
+</head>
+<body>
+
+	<h1>Formulaire de Réservation de Voyage</h1>
+
+	<form method="POST" action="traitement.php">
+
+		<label>Destination :</label>
+		<input type="text" name="destination" required><br><br>
+
+		<label>Date de départ :</label>
+		<input type="date" name="dateDepart" required><br><br>
+
+		<label>Date de retour :</label>
+		<input type="date" name="dateRetour" required><br><br>
+
+		<label>Prix :</label>
+		<input type="number" name="prix" min="0" step="0.01" required><br><br>
+
+		<label>Places disponibles :</label>
+		<input type="number" name="placesDisponibles" min="1" required><br><br>
+
+		<label>Type de voyage :</label>
+		<select name="type">
+			<option value="VoyageOrganise">Voyage Organisé</option>
+			<option value="VoyageLibre">Voyage Libre</option>
+		</select><br><br>
+
+		<label>Nom du guide (pour Voyage Organisé) :</label>
+		<input type="text" name="guideNom"><br><br>
+
+		<label>Activités incluses (pour Voyage Libre) :</label><br>
+		<input type="checkbox" name="activites[]" value="Randonnée"> Randonnée<br>
+		<input type="checkbox" name="activites[]" value="Plongée"> Plongée<br>
+		<input type="checkbox" name="activites[]" value="Visite culturelle"> Visite culturelle<br>
+		<input type="checkbox" name="activites[]" value="Gastronomie"> Gastronomie<br><br>
+
+		<label>Action souhaitée :</label><br>
+		<input type="radio" name="action" value="confirmer" checked> Confirmer
+		<input type="radio" name="action" value="annuler"> Annuler<br><br>
+
+		<input type="submit" value="Envoyer">
+
+	</form>
+
+</body>
+</html>
