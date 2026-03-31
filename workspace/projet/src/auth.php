@@ -56,12 +56,7 @@ class Auth {
 			session_start();
 		}
 
-		return [
-			'login' => $_SESSION['user']  ?? '',
-			'role'  => $_SESSION['role']  ?? '',
-			'id'    => $_SESSION['id']    ?? 0,
-			'nom'   => $_SESSION['nom']   ?? '',
-		];
+		return ['login' => $_SESSION['user'] ?? '', 'role' => $_SESSION['role'] ?? '', 'id' => $_SESSION['id'] ?? 0, 'nom' => $_SESSION['nom'] ?? ''];
 	}
 }
 
