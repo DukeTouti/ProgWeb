@@ -130,7 +130,7 @@ class User {
 
 		while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 			$users[] = new User($row['nom'], $row['prenom'], $row['login'],	$row['password'], $row['role'],	$row['id'],
-					    row['created_at']);
+					    $row['created_at']);
 		}
 
 		return $users;
@@ -149,8 +149,7 @@ class User {
 			return null;
 		}
 
-		return new User($row['nom'], $row['prenom'], $row['login'],	$row['password'], $row['role'],	$row['id'],
-					    row['created_at']);
+		return new User($row['nom'], $row['prenom'], $row['login'], $row['password'], $row['role'], $row['id'],	$row['created_at']);
 	}
 
 	public function findByLogin(PDO $pdo, string $login) : ?User {
@@ -166,8 +165,7 @@ class User {
 			return null;
 		}
 
-		return new User($row['nom'], $row['prenom'], $row['login'],	$row['password'], $row['role'],	$row['id'],
-					    row['created_at']);
+		return new User($row['nom'], $row['prenom'], $row['login'], $row['password'], $row['role'], $row['id'], $row['created_at']);
 	}
 }
 

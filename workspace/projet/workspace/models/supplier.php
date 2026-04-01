@@ -136,7 +136,7 @@ class Supplier {
 			return null;
 		}
 
-		new Supplier($row['nom'], $row['email'], $row['telephone'], (int)$row['id_user'], $row['id']);
+		return new Supplier($row['nom'], $row['email'], $row['telephone'], (int)$row['id_user'], $row['id']);
 	}
 }
 

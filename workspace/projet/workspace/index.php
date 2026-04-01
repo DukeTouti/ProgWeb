@@ -10,7 +10,7 @@ switch ($page) {
 
 	case 'login':
 	case 'logout':
-		require_once 'controllers/authController.php';
+		require_once 'controllers/authcontroller.php';
 		$ctrl = new AuthController();
 		$ctrl->handle($page);
 		break;
