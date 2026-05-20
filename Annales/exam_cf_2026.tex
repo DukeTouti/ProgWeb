@@ -1,0 +1,566 @@
+\documentclass[11pt,a4paper]{article}
+
+% ── Packages ──────────────────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[margin=2cm, top=1.8cm, bottom=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{mdframed}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{multicol}
+
+% ── Colors ────────────────────────────────────────────────────────────────────
+\definecolor{uirblue}{RGB}{0,83,155}
+\definecolor{uirgold}{RGB}{212,160,23}
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codeframe}{RGB}{200,200,200}
+\definecolor{exbg}{RGB}{248,249,252}
+\definecolor{exframe}{RGB}{0,83,155}
+\definecolor{answerbg}{RGB}{255,255,255}
+\definecolor{answerframe}{RGB}{80,80,80}
+\definecolor{qcmbg}{RGB}{252,252,252}
+
+% ── Code listings ─────────────────────────────────────────────────────────────
+\lstdefinelanguage{PHP2}{
+  language=PHP,
+  morekeywords={class,extends,implements,abstract,interface,public,private,
+                protected,function,return,new,null,true,false,static,parent,
+                readonly,void,bool,int,float,string,array},
+  keywordstyle=\color{uirblue}\bfseries,
+  stringstyle=\color{red!70!black},
+  commentstyle=\color{gray}\itshape,
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{codeframe},
+  showstringspaces=false,
+  breaklines=true,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=6pt,
+  xleftmargin=14pt,
+  tabsize=4,
+}
+
+\lstdefinelanguage{HTML2}{
+  language=HTML,
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{codeframe},
+  showstringspaces=false,
+  breaklines=true,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=6pt,
+  xleftmargin=14pt,
+  tabsize=4,
+  keywordstyle=\color{uirblue}\bfseries,
+  stringstyle=\color{red!70!black},
+}
+
+% ── Answer box ────────────────────────────────────────────────────────────────
+\newcommand{\answerbox}[1]{%
+  \begin{mdframed}[
+    linecolor=answerframe,
+    linewidth=0.5pt,
+    backgroundcolor=answerbg,
+    innertopmargin=6pt,
+    innerbottommargin=#1,
+    innerleftmargin=6pt,
+    innerrightmargin=6pt,
+    skipabove=4pt,
+    skipbelow=6pt,
+  ]
+  \phantom{x}
+  \end{mdframed}
+}
+
+% ── Exercise frame ────────────────────────────────────────────────────────────
+\mdfdefinestyle{exstyle}{
+  linecolor=exframe,
+  linewidth=1.2pt,
+  backgroundcolor=exbg,
+  innertopmargin=8pt,
+  innerbottommargin=6pt,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  skipabove=10pt,
+  skipbelow=4pt,
+  frametitlebackgroundcolor=uirblue,
+  frametitlefont=\color{white}\bfseries\normalsize,
+}
+
+% ── QCM checkbox ─────────────────────────────────────────────────────────────
+\newcommand{\cb}{$\square$\ }
+
+% ── Header / footer ──────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\small\color{gray} Examen Final — Web Development I}
+\fancyhead[R]{\small\color{gray} ESIN Ing3 — S6 — 2025/2026}
+\fancyfoot[C]{\small\thepage}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{document}
+\thispagestyle{empty}
+
+% ══ HEADER PAGE 1 ══════════════════════════════════════════════════════════════
+\noindent
+\begin{minipage}[c]{0.42\textwidth}
+  \textcolor{uirblue}{\Large\bfseries U\={I}R}\\
+  \textcolor{gray}{\footnotesize COLLEGE OF ENGINEERING \& ARCHITECTURE}
+\end{minipage}%
+\hfill
+\begin{minipage}[c]{0.52\textwidth}
+  \raggedleft
+  \textcolor{uirblue}{\textbf{Ecole Supérieure}}\\
+  \textcolor{uirblue}{\textbf{d'Informatique et du Numérique}}\\
+  \textcolor{gray}{\footnotesize COLLEGE OF ENGINEERING \& ARCHITECTURE}
+\end{minipage}
+
+\vspace{6pt}
+\noindent\rule{\linewidth}{0.8pt}
+\vspace{4pt}
+
+\begin{center}
+  \textit{Examen Final (CF)}\\[6pt]
+  {\LARGE\bfseries ESIN : Semestre 6}
+\end{center}
+
+\vspace{6pt}
+\noindent
+\begin{tabular}{ll}
+  \textbf{Matière}     & Web Development I \\
+  \textbf{Enseignant}  & Saad NOUFEL \\
+  \textbf{Date}        & Mai 2026 \\
+  \textbf{Durée}       & 2h00 \\
+\end{tabular}
+
+\vspace{8pt}
+
+% ── Course Outcomes table ─────────────────────────────────────────────────────
+\begin{center}
+\begin{tabular}{|>{\bfseries}p{10cm}|c|c|}
+  \hline
+  \rowcolor{uirblue!15}
+  \textbf{Course Outcomes} & \textbf{Exercice} & \textbf{Pourcentage} \\
+  \hline
+  CO2 : Mastery of Basic and OOP principles in PHP to develop robust and scalable applications
+    & 3 & 45\% \\
+  \hline
+  CO3 : Database access with PDO and web authentication via Sessions \& Cookies
+    & 1 \& 2 & 55\% \\
+  \hline
+\end{tabular}
+\end{center}
+
+\vspace{10pt}
+
+% ── Student info ──────────────────────────────────────────────────────────────
+\noindent
+\begin{tabular}{ll}
+  Nom              & \dotfill \\[8pt]
+  Prénom           & \dotfill \\[8pt]
+  Numéro d'étudiant & \dotfill \\
+\end{tabular}
+
+\vspace{10pt}
+
+% ── Consignes ─────────────────────────────────────────────────────────────────
+\noindent\textbf{Consignes :}
+\begin{itemize}[leftmargin=1.5em, itemsep=1pt, topsep=2pt]
+  \item Répondez directement sur le sujet
+  \item Vous disposez d'un cheatsheet en dernière page
+  \item \textbf{Bonne chance !}
+\end{itemize}
+
+\vspace{6pt}
+\noindent\rule{\linewidth}{0.4pt}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  EXERCICE 1 — Sessions & Cookies
+% ══════════════════════════════════════════════════════════════════════════════
+\begin{mdframed}[style=exstyle, frametitle={Exercice 1 \quad Sessions \& Cookies \hfill (5 pts)}]
+On souhaite développer un système d'authentification pour \textbf{CampusMedia}, une vidéothèque universitaire en ligne.
+
+Soit le formulaire HTML de connexion suivant :
+
+\begin{lstlisting}[language=HTML2]
+<form method="POST" action="connexion.php">
+    <label>Login :</label>
+    <input type="text" name="login" required>
+
+    <label>Mot de passe :</label>
+    <input type="password" name="mot_de_passe" required>
+
+    <button type="submit">Se connecter</button>
+</form>
+\end{lstlisting}
+\end{mdframed}
+
+\bigskip
+
+\noindent\textbf{Question 1 (2 pts)} : Écrivez le code PHP du fichier \texttt{connexion.php} qui :
+\begin{itemize}[itemsep=1pt, topsep=2pt]
+  \item Démarre la session
+  \item Récupère le login et le mot de passe envoyés par le formulaire
+  \item Vérifie que les deux champs ne sont pas vides, sinon affiche \texttt{"Veuillez remplir tous les champs."}
+  \item Interroge la table \texttt{utilisateurs} avec PDO pour trouver l'utilisateur dont le \texttt{login} correspond
+  \item Vérifie le mot de passe avec \texttt{password\_verify()}
+  \item En cas de succès : stocke le login dans \texttt{\$\_SESSION['utilisateur']} et le rôle dans \texttt{\$\_SESSION['role']}, crée un cookie \texttt{derniere\_connexion} avec la date et l'heure actuelles (valide \textbf{30 jours}), redirige vers \texttt{catalogue.php}
+  \item En cas d'échec : affiche \texttt{"Identifiants incorrects."}
+\end{itemize}
+
+\answerbox{130pt}
+
+\noindent\textbf{Question 2 (1.5 pts)} : Écrivez le code PHP du \textbf{début} du fichier \texttt{catalogue.php} qui :
+\begin{itemize}[itemsep=1pt, topsep=2pt]
+  \item Vérifie que l'utilisateur est connecté, sinon redirige vers \texttt{connexion.php}
+  \item Affiche \texttt{"Bienvenue, [login] ! (rôle : [role])"} en récupérant les données depuis la session
+  \item Si le cookie \texttt{derniere\_connexion} existe, affiche \texttt{"Dernière connexion : [date]"}, sinon \texttt{"Première connexion"}
+\end{itemize}
+
+\answerbox{90pt}
+
+\noindent\textbf{Question 3 (1.5 pts)} : Écrivez le code complet du fichier \texttt{deconnexion.php} qui :
+\begin{itemize}[itemsep=1pt, topsep=2pt]
+  \item Démarre la session, supprime toutes les variables de session et détruit la session côté serveur
+  \item Supprime le cookie \texttt{derniere\_connexion}
+  \item Redirige vers \texttt{connexion.php}
+\end{itemize}
+
+\answerbox{80pt}
+
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  EXERCICE 2 — PHP et PDO
+% ══════════════════════════════════════════════════════════════════════════════
+\begin{mdframed}[style=exstyle, frametitle={Exercice 2 \quad PHP et PDO \hfill (6 pts)}]
+On souhaite gérer le catalogue de films de \textbf{CampusMedia}.
+Les films sont stockés dans la table \texttt{FILMS} de la base de données \texttt{campusmedia\_bd}.
+
+\vspace{6pt}
+\noindent Structure de la table \texttt{FILMS} :
+
+\vspace{4pt}
+\noindent
+\begin{tabular}{|l|l|}
+  \hline
+  \rowcolor{uirblue!10}
+  \textbf{Colonne} & \textbf{Type} \\
+  \hline
+  \texttt{id}          & \texttt{INT AUTO\_INCREMENT PRIMARY KEY} \\
+  \texttt{titre}       & \texttt{VARCHAR(100)} \\
+  \texttt{realisateur} & \texttt{VARCHAR(80)} \\
+  \texttt{genre}       & \texttt{VARCHAR(30)} \\
+  \texttt{annee}       & \texttt{YEAR} \\
+  \texttt{note}        & \texttt{DECIMAL(3,1)} \\
+  \hline
+\end{tabular}
+
+\vspace{6pt}
+\noindent Informations de connexion : \texttt{mysql:host=localhost;dbname=campusmedia\_bd},
+utilisateur : \texttt{'mediauser'}, mot de passe : \texttt{'media2026'}
+\end{mdframed}
+
+\bigskip
+
+\noindent\textbf{Question 1 (1 pt)} : Écrivez la fonction \texttt{getConnexion(): PDO} permettant de se connecter à la base de données avec le mode d'erreur \texttt{ERRMODE\_EXCEPTION} et le mode de fetch \texttt{FETCH\_ASSOC} par défaut.
+
+\answerbox{80pt}
+
+\noindent\textbf{Question 2 (2 pts)} : Écrivez la méthode statique \texttt{getAll(PDO \$pdo, int \$limit = 0): array} qui :
+\begin{itemize}[itemsep=1pt, topsep=2pt]
+  \item Récupère tous les films depuis la base de données, triés par note décroissante
+  \item Si \texttt{\$limit > 0}, limite le nombre de résultats retournés
+  \item Retourne un tableau d'objets \texttt{Film}
+\end{itemize}
+
+\answerbox{110pt}
+
+\noindent\textbf{Question 3 (1.5 pts)} : Écrivez la méthode \texttt{save(PDO \$pdo): bool} qui insère le film courant (\texttt{\$this}) dans la base de données en utilisant des \textbf{paramètres nommés} (\texttt{:label}). En cas de succès, mettez à jour \texttt{\$this->id} avec l'identifiant généré.
+
+\answerbox{110pt}
+
+\noindent\textbf{Question 4 (1.5 pts)} : Écrivez la méthode statique \texttt{findByGenre(PDO \$pdo, string \$genre): array} qui retourne tous les films d'un genre donné triés par note décroissante. Expliquez ensuite en une phrase pourquoi votre implémentation protège contre les injections SQL.
+
+\answerbox{90pt}
+
+\noindent\textit{Explication} : \dotfill
+
+\vspace{4pt}
+\dotfill
+
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  EXERCICE 3 — POO
+% ══════════════════════════════════════════════════════════════════════════════
+\begin{mdframed}[style=exstyle, frametitle={Exercice 3 \quad POO en PHP \hfill (9 pts)}]
+On souhaite modéliser les ressources disponibles dans la vidéothèque \textbf{CampusMedia}.
+\end{mdframed}
+
+\bigskip
+
+\noindent\textbf{Question 1 (2 pts)} : Créez une classe \textbf{abstraite} \texttt{Ressource} avec :
+\begin{itemize}[itemsep=1pt, topsep=2pt]
+  \item Attributs \textbf{protégés} : \texttt{id} (int), \texttt{titre} (string), \texttt{dateAjout} (string)
+  \item Un constructeur pour initialiser ces trois attributs
+  \item Une méthode \textbf{abstraite} \texttt{getType(): string}
+  \item Une méthode \textbf{concrète} \texttt{\_\_toString()} qui retourne une chaîne contenant l'id, le titre et la date d'ajout
+\end{itemize}
+
+\answerbox{120pt}
+
+\noindent\textbf{Question 2 (1 pt)} : Créez une \textbf{interface} \texttt{Empruntable} avec les méthodes suivantes :
+\begin{itemize}[itemsep=1pt, topsep=2pt]
+  \item \texttt{emprunter(string \$nomEtudiant): bool} --- retourne \texttt{true} si l'emprunt est réussi, \texttt{false} sinon
+  \item \texttt{retourner(): bool} --- retourne \texttt{true} si le retour est réussi, \texttt{false} sinon
+  \item \texttt{getEmprunteur(): ?string} --- retourne le nom de l'emprunteur ou \texttt{null} si la ressource est disponible
+\end{itemize}
+
+\answerbox{80pt}
+
+\noindent\textbf{Question 3 (6 pts)} : Créez une classe \texttt{Film} qui \textbf{hérite} de \texttt{Ressource} ET \textbf{implémente} \texttt{Empruntable} avec :
+\begin{itemize}[itemsep=1pt, topsep=2pt]
+  \item Attributs propres : \texttt{realisateur} (string), \texttt{genre} (string), \texttt{dureeMinutes} (int), \texttt{estDisponible} (bool), \texttt{emprunteur} (?string)
+  \item Un constructeur qui appelle \texttt{parent::\_\_construct()} et initialise les attributs propres (\texttt{estDisponible = true} et \texttt{emprunteur = null} par défaut)
+  \item Un \textbf{getter} pour \texttt{realisateur}
+  \item Un \textbf{setter} pour \texttt{genre}
+  \item Implémentation de \texttt{getType()}: retourne la chaîne \texttt{"Film"}
+  \item Implémentation des \textbf{trois méthodes} de \texttt{Empruntable} :\\
+    --- \texttt{emprunter()} : réussi uniquement si le film est disponible\\
+    --- \texttt{retourner()} : réussi uniquement si le film est actuellement emprunté\\
+    --- \texttt{getEmprunteur()} : retourne l'emprunteur ou \texttt{null}
+  \item Une méthode \texttt{\_\_toString()} qui surcharge celle du parent pour inclure également le réalisateur, le genre, la durée et la disponibilité
+\end{itemize}
+
+\answerbox{210pt}
+
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  QCM
+% ══════════════════════════════════════════════════════════════════════════════
+\begin{center}
+  {\Large\bfseries QCM --- Cochez la ou les bonnes réponses \hspace{1em} (5 pts)}
+\end{center}
+
+\vspace{8pt}
+
+\noindent\textbf{Question 1 (1 pt)} : Laquelle des affirmations suivantes est correcte concernant \texttt{session\_start()} ?
+
+\begin{itemize}[leftmargin=2em, itemsep=3pt, topsep=4pt]
+  \item[\cb] Elle peut être appelée après l'envoi de contenu HTML
+  \item[\cb] Elle doit être appelée avant tout output, en tout premier
+  \item[\cb] Elle crée automatiquement un cookie côté client avec l'ID de session
+  \item[\cb] Elle stocke les données de session dans le navigateur
+\end{itemize}
+
+\vspace{6pt}
+
+\noindent\textbf{Question 2 (1 pt)} : Comment supprimer définitivement un cookie nommé \texttt{token} en PHP ?
+
+\begin{itemize}[leftmargin=2em, itemsep=3pt, topsep=4pt]
+  \item[\cb] \texttt{unset(\$\_COOKIE['token'])}
+  \item[\cb] \texttt{setcookie('token', '', time() - 3600, '/')}
+  \item[\cb] \texttt{deletecookie('token')}
+  \item[\cb] \texttt{session\_destroy()}
+\end{itemize}
+
+\vspace{6pt}
+
+\noindent\textbf{Question 3 (1 pt)} : Parmi les instructions PDO suivantes, laquelle protège contre les injections SQL ?
+
+\begin{itemize}[leftmargin=2em, itemsep=3pt, topsep=4pt]
+  \item[\cb] \texttt{\$pdo->query("SELECT * FROM films WHERE genre = '\$genre'");}
+  \item[\cb] \texttt{\$stmt = \$pdo->prepare("SELECT * FROM films WHERE genre = ?"); \$stmt->execute([\$genre]);}
+  \item[\cb] \texttt{\$pdo->exec("SELECT * FROM films WHERE genre = " . \$genre);}
+  \item[\cb] \texttt{\$pdo->query("SELECT * FROM films WHERE genre = " . htmlspecialchars(\$genre));}
+\end{itemize}
+
+\vspace{6pt}
+
+\noindent\textbf{Question 4 (1 pt)} : Lesquelles des affirmations suivantes sur les classes abstraites et les interfaces sont \textbf{vraies} ?
+
+\begin{itemize}[leftmargin=2em, itemsep=3pt, topsep=4pt]
+  \item[\cb] Une classe abstraite peut contenir des méthodes avec implémentation
+  \item[\cb] Une interface peut contenir des méthodes avec implémentation (corps)
+  \item[\cb] Une classe peut hériter de plusieurs classes abstraites à la fois en PHP
+  \item[\cb] Une classe peut implémenter plusieurs interfaces à la fois en PHP
+\end{itemize}
+
+\vspace{6pt}
+
+\noindent\textbf{Question 5 (1 pt)} : Que retourne \texttt{\$stmt->fetch(PDO::FETCH\_ASSOC)} quand la requête ne trouve aucun résultat ?
+
+\begin{itemize}[leftmargin=2em, itemsep=3pt, topsep=4pt]
+  \item[\cb] \texttt{[]}
+  \item[\cb] \texttt{null}
+  \item[\cb] \texttt{false}
+  \item[\cb] Une exception \texttt{PDOException}
+\end{itemize}
+
+\vspace{10pt}
+\begin{center}
+  \rule{6cm}{0.4pt}\\[4pt]
+  {\large --- Fin du sujet ---}\\
+  \rule{6cm}{0.4pt}
+\end{center}
+
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHEATSHEET
+% ══════════════════════════════════════════════════════════════════════════════
+\thispagestyle{fancy}
+\begin{center}
+  {\LARGE\bfseries Web Development I --- Cheatsheet}\\[2pt]
+  {\normalsize Chapitres 3, 4 \& 5 --- ESIN Ing3}
+\end{center}
+
+\vspace{6pt}
+\noindent\rule{\linewidth}{0.8pt}
+\vspace{4pt}
+
+\begin{multicols}{2}
+
+% ── LEFT COLUMN ───────────────────────────────────────────────────────────────
+\noindent\colorbox{uirblue!15}{\parbox{\linewidth-2pt}{\bfseries CHAPITRE 3 : POO EN PHP}}
+
+\vspace{4pt}
+\textcolor{uirblue}{\textbf{Classe abstraite}}
+\begin{lstlisting}[language=PHP2, numbers=none]
+abstract class Ressource {
+    protected int $id;
+    public function __construct(int $id) {
+        $this->id = $id;
+    }
+    abstract public function getType(): string;
+    public function __toString(): string {
+        return "ID: {$this->id}";
+    }
+}
+\end{lstlisting}
+
+\vspace{4pt}
+\textcolor{uirblue}{\textbf{Interface}}
+\begin{lstlisting}[language=PHP2, numbers=none]
+interface Empruntable {
+    public function emprunter(string $nom): bool;
+    public function retourner(): bool;
+    public function getEmprunteur(): ?string;
+}
+\end{lstlisting}
+
+\vspace{4pt}
+\textcolor{uirblue}{\textbf{Héritage + Interface}}
+\begin{lstlisting}[language=PHP2, numbers=none]
+class Film extends Ressource
+             implements Empruntable {
+    public function __construct(
+        int $id, string $titre
+    ) {
+        parent::__construct($id, $titre);
+    }
+    public function getType(): string {
+        return "Film";
+    }
+    public function emprunter(
+        string $nom
+    ): bool { ... }
+}
+\end{lstlisting}
+
+\columnbreak
+
+% ── RIGHT COLUMN ──────────────────────────────────────────────────────────────
+\noindent\colorbox{uirblue!15}{\parbox{\linewidth-2pt}{\bfseries CHAPITRE 4 : PHP ET PDO}}
+
+\vspace{4pt}
+\textcolor{uirblue}{\textbf{Connexion}}
+\begin{lstlisting}[language=PHP2, numbers=none]
+$pdo = new PDO($dsn, $user, $pass, [
+    PDO::ATTR_ERRMODE =>
+        PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE =>
+        PDO::FETCH_ASSOC,
+]);
+\end{lstlisting}
+
+\vspace{4pt}
+\textcolor{uirblue}{\textbf{Prepared statements}}
+\begin{lstlisting}[language=PHP2, numbers=none]
+// Param nommes
+$stmt = $pdo->prepare(
+    "INSERT INTO t (col) VALUES (:col)"
+);
+$stmt->bindValue(':col', $v, PDO::PARAM_STR);
+$stmt->execute();
+$id = (int) $pdo->lastInsertId();
+
+// Param positionnels
+$stmt = $pdo->prepare(
+    "SELECT * FROM t WHERE id = ?"
+);
+$stmt->execute([$id]);
+$row  = $stmt->fetch();     // une ligne
+$rows = $stmt->fetchAll();  // toutes
+\end{lstlisting}
+
+\vspace{4pt}
+\noindent\colorbox{uirblue!15}{\parbox{\linewidth-2pt}{\bfseries CHAPITRE 5 : SESSIONS \& COOKIES}}
+
+\vspace{4pt}
+\textcolor{uirblue}{\textbf{Session}}
+\begin{lstlisting}[language=PHP2, numbers=none]
+session_start(); // avant tout output !
+$_SESSION['utilisateur'] = 'admin';
+if (!isset($_SESSION['utilisateur'])) {
+    header('Location: login.php'); exit;
+}
+session_unset();
+session_destroy(); // deconnexion
+\end{lstlisting}
+
+\vspace{4pt}
+\textcolor{uirblue}{\textbf{Cookie}}
+\begin{lstlisting}[language=PHP2, numbers=none]
+// Creer (30 jours)
+setcookie('nom', 'val',
+          time() + 30*24*3600, '/');
+// Lire
+echo $_COOKIE['nom'];
+// Supprimer
+setcookie('nom', '', time()-3600, '/');
+\end{lstlisting}
+
+\vspace{4pt}
+\textcolor{uirblue}{\textbf{Password + Redirection}}
+\begin{lstlisting}[language=PHP2, numbers=none]
+$hash = password_hash($mdp, PASSWORD_DEFAULT);
+if (password_verify($mdp, $hash)) { ... }
+
+header('Location: page.php'); exit;
+\end{lstlisting}
+
+\end{multicols}
+
+\end{document}

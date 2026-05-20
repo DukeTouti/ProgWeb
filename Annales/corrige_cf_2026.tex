@@ -1,0 +1,736 @@
+\documentclass[11pt,a4paper]{article}
+
+% ------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[margin=2cm, top=1.8cm, bottom=2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{mdframed}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% ------------------------------------------------------------
+\definecolor{uirblue}{RGB}{0,83,155}
+\definecolor{uirgold}{RGB}{212,160,23}
+\definecolor{codebg}{RGB}{245,247,250}
+\definecolor{codeframe}{RGB}{180,200,220}
+\definecolor{correctgreen}{RGB}{0,120,60}
+\definecolor{correctbg}{RGB}{240,250,244}
+\definecolor{pointsbg}{RGB}{255,248,220}
+\definecolor{pointsframe}{RGB}{212,160,23}
+\definecolor{exbg}{RGB}{235,243,255}
+\definecolor{wrongred}{RGB}{180,30,30}
+
+% ------------------------------------------------------------
+\lstdefinelanguage{PHP2}{
+  language=PHP,
+  morekeywords={class,extends,implements,abstract,interface,public,private,
+                protected,function,return,new,null,true,false,static,parent,
+                readonly,void,bool,int,float,string,array,self},
+  keywordstyle=\color{uirblue}\bfseries,
+  stringstyle=\color{red!70!black},
+  commentstyle=\color{gray!80}\itshape,
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  framerule=0.5pt,
+  rulecolor=\color{codeframe},
+  showstringspaces=false,
+  breaklines=true,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=7pt,
+  xleftmargin=16pt,
+  tabsize=4,
+  literate={=>}{{\textcolor{uirblue}{=>}}}2
+           {->}{{\textcolor{uirblue}{->}}}2,
+}
+
+% ------------------------------------------------------------
+\newcommand{\pts}[1]{%
+  \hfill\colorbox{pointsbg}{\textcolor{uirgold}{\bfseries\small #1 pts}}%
+}
+
+% ------------------------------------------------------------
+\tcbset{
+  corrbox/.style={
+    enhanced,
+    breakable,
+    colback=correctbg,
+    colframe=correctgreen,
+    fonttitle=\bfseries\color{white},
+    coltitle=white,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=correctgreen, rounded corners},
+    arc=3pt,
+    boxrule=0.8pt,
+    left=6pt, right=6pt, top=8pt, bottom=6pt,
+    before skip=6pt, after skip=8pt,
+  },
+  exbox/.style={
+    enhanced,
+    colback=exbg,
+    colframe=uirblue,
+    fonttitle=\bfseries\color{white},
+    coltitle=white,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=uirblue},
+    arc=3pt,
+    boxrule=1.2pt,
+    left=8pt, right=8pt, top=10pt, bottom=8pt,
+    before skip=10pt, after skip=6pt,
+  },
+  notebox/.style={
+    enhanced,
+    colback=pointsbg,
+    colframe=uirgold,
+    arc=3pt,
+    boxrule=0.6pt,
+    left=6pt, right=6pt, top=4pt, bottom=4pt,
+    before skip=4pt, after skip=6pt,
+    fontupper=\small,
+  },
+}
+
+% ------------------------------------------------------------
+\newcommand{\cbv}{\textcolor{correctgreen}{$\boxtimes$}\ }  % correct
+\newcommand{\cbx}{\textcolor{wrongred}{$\square$}\ }         % wrong
+
+% ------------------------------------------------------------
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\small\color{gray} \textbf{CORRIG\'E} --- Examen Final CF --- Web Development I}
+\fancyhead[R]{\small\color{gray} ESIN Ing3 --- S6 --- 2025/2026}
+\fancyfoot[C]{\small\thepage}
+
+% ------------------------------------------------------------
+\begin{document}
+\thispagestyle{empty}
+
+% ------------------------------------------------------------
+\noindent
+\begin{minipage}[c]{0.42\textwidth}
+  \textcolor{uirblue}{\Large\bfseries UIR}\\
+  \textcolor{gray}{\footnotesize COLLEGE OF ENGINEERING \& ARCHITECTURE}
+\end{minipage}%
+\hfill
+\begin{minipage}[c]{0.52\textwidth}
+  \raggedleft
+  \textcolor{uirblue}{\textbf{Ecole Supérieure d'Informatique et du Numérique}}\\
+  \textcolor{gray}{\footnotesize COLLEGE OF ENGINEERING \& ARCHITECTURE}
+\end{minipage}
+
+\vspace{6pt}
+\noindent\rule{\linewidth}{0.8pt}
+
+\begin{center}
+  \vspace{4pt}
+  {\large\itshape Examen Final (CF) --- Corrigé officiel}\\[6pt]
+  {\LARGE\bfseries\color{uirblue} ESIN : Semestre 6}\\[4pt]
+  {\large Web Development I \quad|\quad Saad NOUFEL \quad|\quad Mai 2026}\\[2pt]
+  \colorbox{correctgreen}{\textcolor{white}{\bfseries\large DOCUMENT RÉSERVÉ AU CORRECTEUR}}
+\end{center}
+
+\noindent\rule{\linewidth}{0.8pt}
+
+\vspace{4pt}
+\begin{tcolorbox}[notebox]
+  \textbf{Barème total : 20 points} \quad
+  Ex.1 Sessions \& Cookies : 5 pts \quad
+  Ex.2 PDO : 6 pts \quad
+  Ex.3 POO : 9 pts \quad
+  QCM : 5 pts (1 pt/question, réponses partielles = 0)
+\end{tcolorbox}
+
+% ------------------------------------------------------------
+%  EXERCICE 1 --- Sessions & Cookies
+% ------------------------------------------------------------
+\begin{tcolorbox}[exbox, title={Exercice 1 \quad Sessions \& Cookies \hfill /5 pts}]
+Système d'authentification pour \textbf{CampusMedia} --- vidéothèque universitaire.
+\end{tcolorbox}
+
+% ------------------------------------------------------------
+\noindent\textbf{Question 1}\pts{2}
+
+\begin{tcolorbox}[corrbox, title={Corrigé Q1 --- connexion.php}]
+\begin{lstlisting}[language=PHP2, numbers=left]
+<?php
+session_start();
+require_once 'connexion.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $login = trim($_POST['login'] ?? '');
+    $mdp   = trim($_POST['mot_de_passe'] ?? '');
+
+    if (empty($login) || empty($mdp)) {
+        echo "Veuillez remplir tous les champs.";
+    } else {
+        $pdo  = getConnexion();
+        $stmt = $pdo->prepare(
+            "SELECT * FROM utilisateurs WHERE login = ?"
+        );
+        $stmt->execute([$login]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($mdp, $user['mot_de_passe'])) {
+            $_SESSION['utilisateur'] = $user['login'];
+            $_SESSION['role']        = $user['role'] ?? 'visiteur';
+
+            setcookie(
+                'derniere_connexion',
+                date('d/m/Y H:i'),
+                time() + 30 * 24 * 3600,
+                '/'
+            );
+            header('Location: catalogue.php');
+            exit;
+        } else {
+            echo "Identifiants incorrects.";
+        }
+    }
+}
+?>
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[notebox]
+\textbf{Points clés à vérifier (2 pts) :}
+\begin{itemize}[itemsep=1pt, topsep=0pt]
+  \item \textbf{0.25 pt} --- \texttt{session\_start()} en tout premier
+  \item \textbf{0.25 pt} --- Vérification \texttt{empty()} sur les deux champs
+  \item \textbf{0.25 pt} --- Prepared statement correct avec \texttt{?} ou \texttt{:login}
+  \item \textbf{0.25 pt} --- \texttt{password\_verify()} utilisé (pas comparaison directe)
+  \item \textbf{0.5 pt}  --- \texttt{\$\_SESSION} rempli avec login ET rôle
+  \item \textbf{0.25 pt} --- \texttt{setcookie()} avec expiration 30 jours (\texttt{time()+30*24*3600})
+  \item \textbf{0.25 pt} --- \texttt{header('Location: ...')} suivi de \texttt{exit}
+\end{itemize}
+\end{tcolorbox}
+
+\bigskip
+
+% ------------------------------------------------------------
+\noindent\textbf{Question 2}\pts{1.5}
+
+\begin{tcolorbox}[corrbox, title={Corrigé Q2 --- début de catalogue.php}]
+\begin{lstlisting}[language=PHP2]
+<?php
+session_start();
+
+if (!isset($_SESSION['utilisateur'])) {
+    header('Location: connexion.php');
+    exit;
+}
+
+$login = htmlspecialchars($_SESSION['utilisateur']);
+$role  = htmlspecialchars($_SESSION['role'] ?? 'visiteur');
+
+echo "Bienvenue, $login ! (role : $role)";
+
+if (isset($_COOKIE['derniere_connexion'])) {
+    $date = htmlspecialchars($_COOKIE['derniere_connexion']);
+    echo "Derniere connexion : $date";
+} else {
+    echo "Premiere connexion";
+}
+?>
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[notebox]
+\textbf{Points clés (1.5 pt) :}
+\begin{itemize}[itemsep=1pt, topsep=0pt]
+  \item \textbf{0.5 pt} --- Guard clause : \texttt{!isset(\$\_SESSION['utilisateur'])} + redirect + \texttt{exit}
+  \item \textbf{0.5 pt} --- Affichage login et rôle depuis \texttt{\$\_SESSION}
+  \item \textbf{0.5 pt} --- \texttt{isset(\$\_COOKIE[...])} avec les deux cas (connexion / première fois)
+\end{itemize}
+Accepter sans \texttt{htmlspecialchars()} (non demandé explicitement mais apprécié).
+\end{tcolorbox}
+
+\bigskip
+
+% ------------------------------------------------------------
+\noindent\textbf{Question 3}\pts{1.5}
+
+\begin{tcolorbox}[corrbox, title={Corrigé Q3 --- deconnexion.php}]
+\begin{lstlisting}[language=PHP2]
+<?php
+session_start();
+session_unset();
+session_destroy();
+
+setcookie('derniere_connexion', '', time() - 3600, '/');
+
+header('Location: connexion.php');
+exit;
+?>
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[notebox]
+\textbf{Points clés (1.5 pt) :}
+\begin{itemize}[itemsep=1pt, topsep=0pt]
+  \item \textbf{0.5 pt} --- \texttt{session\_unset()} ET \texttt{session\_destroy()} (les deux)
+  \item \textbf{0.5 pt} --- Suppression cookie : \texttt{setcookie('...', '', time()-3600, '/')}
+  \item \textbf{0.5 pt} --- Redirection + \texttt{exit}
+\end{itemize}
+\textit{Remarque :} \texttt{session\_unset()} seul sans \texttt{session\_destroy()} = --0.25 pt.
+\end{tcolorbox}
+
+\newpage
+
+% ------------------------------------------------------------
+%  EXERCICE 2 --- PDO
+% ------------------------------------------------------------
+\begin{tcolorbox}[exbox, title={Exercice 2 \quad PHP et PDO \hfill /6 pts}]
+Gestion du catalogue de films \textbf{CampusMedia} via PDO --- table \texttt{FILMS}.
+\end{tcolorbox}
+
+% ------------------------------------------------------------
+\noindent\textbf{Question 1}\pts{1}
+
+\begin{tcolorbox}[corrbox, title={Corrigé Q1 --- getConnexion()}]
+\begin{lstlisting}[language=PHP2]
+function getConnexion(): PDO {
+    $dsn = "mysql:host=localhost;dbname=campusmedia_bd;charset=utf8mb4";
+    return new PDO($dsn, 'mediauser', 'media2026', [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);
+}
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[notebox]
+\textbf{Points clés (1 pt) :}
+\begin{itemize}[itemsep=1pt, topsep=0pt]
+  \item \textbf{0.25 pt} --- DSN correct (\texttt{mysql:host=...;dbname=...})
+  \item \textbf{0.25 pt} --- Identifiants corrects passés au constructeur PDO
+  \item \textbf{0.25 pt} --- \texttt{PDO::ATTR\_ERRMODE => PDO::ERRMODE\_EXCEPTION}
+  \item \textbf{0.25 pt} --- \texttt{PDO::ATTR\_DEFAULT\_FETCH\_MODE => PDO::FETCH\_ASSOC}
+\end{itemize}
+\end{tcolorbox}
+
+\bigskip
+
+% ------------------------------------------------------------
+\noindent\textbf{Question 2}\pts{2}
+
+\begin{tcolorbox}[corrbox, title={Corrigé Q2 --- getAll()}]
+\begin{lstlisting}[language=PHP2]
+public static function getAll(PDO $pdo, int $limit = 0): array {
+    $sql = "SELECT * FROM FILMS ORDER BY note DESC";
+    if ($limit > 0) {
+        $sql .= " LIMIT " . (int) $limit;
+    }
+    $stmt = $pdo->query($sql);
+    $films = [];
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $films[] = new Film(
+            $row['titre'],
+            $row['realisateur'],
+            $row['genre'],
+            (int)   $row['annee'],
+            (float) $row['note'],
+            (int)   $row['id']
+        );
+    }
+    return $films;
+}
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[notebox]
+\textbf{Points clés (2 pts) :}
+\begin{itemize}[itemsep=1pt, topsep=0pt]
+  \item \textbf{0.5 pt} --- \texttt{ORDER BY note DESC} présent
+  \item \textbf{0.5 pt} --- Gestion du \texttt{\$limit} avec cast \texttt{(int)} pour sécurité
+  \item \textbf{0.5 pt} --- Boucle \texttt{while}/\texttt{fetchAll} et construction des objets \texttt{Film}
+  \item \textbf{0.5 pt} --- Retourne le tableau \texttt{\$films}
+\end{itemize}
+Accepter \texttt{fetchAll()} + \texttt{foreach} à la place de \texttt{while} + \texttt{fetch()}.
+\end{tcolorbox}
+
+\bigskip
+
+% ------------------------------------------------------------
+\noindent\textbf{Question 3}\pts{1.5}
+
+\begin{tcolorbox}[corrbox, title={Corrigé Q3 --- save()}]
+\begin{lstlisting}[language=PHP2]
+public function save(PDO $pdo): bool {
+    $sql = "INSERT INTO FILMS (titre, realisateur, genre, annee, note)
+            VALUES (:titre, :realisateur, :genre, :annee, :note)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':titre',       $this->titre,       PDO::PARAM_STR);
+    $stmt->bindValue(':realisateur', $this->realisateur, PDO::PARAM_STR);
+    $stmt->bindValue(':genre',       $this->genre,       PDO::PARAM_STR);
+    $stmt->bindValue(':annee',       $this->annee,       PDO::PARAM_INT);
+    $stmt->bindValue(':note',        $this->note);
+    $ok = $stmt->execute();
+    if ($ok) {
+        $this->id = (int) $pdo->lastInsertId();
+    }
+    return $ok;
+}
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[notebox]
+\textbf{Points clés (1.5 pt) :}
+\begin{itemize}[itemsep=1pt, topsep=0pt]
+  \item \textbf{0.5 pt} --- \texttt{prepare()} avec paramètres nommés \texttt{:label} (pas de concaténation)
+  \item \textbf{0.5 pt} --- \texttt{bindValue()} ou \texttt{execute([...])} correct pour les 5 champs
+  \item \textbf{0.5 pt} --- \texttt{\$this->id = (int) \$pdo->lastInsertId()} après succès
+\end{itemize}
+\textit{Remarque :} \texttt{DECIMAL} (\texttt{note}) n'a pas de constante \texttt{PDO::PARAM\_*} spécifique --- laisser sans type est correct.
+\end{tcolorbox}
+
+\bigskip
+
+% ------------------------------------------------------------
+\noindent\textbf{Question 4}\pts{1.5}
+
+\begin{tcolorbox}[corrbox, title={Corrigé Q4 --- findByGenre()}]
+\begin{lstlisting}[language=PHP2]
+public static function findByGenre(PDO $pdo, string $genre): array {
+    $stmt = $pdo->prepare(
+        "SELECT * FROM FILMS WHERE genre = ? ORDER BY note DESC"
+    );
+    $stmt->execute([$genre]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+\end{lstlisting}
+
+\vspace{4pt}
+\textbf{Explication :} Le \textit{prepared statement} sépare le code SQL des données : la valeur de \texttt{\$genre} est transmise comme paramètre lié, jamais interprétée comme du SQL. La chaîne malveillante \texttt{' OR '1'='1} est traitée comme une valeur littérale et ne modifie pas la structure de la requête.
+\end{tcolorbox}
+
+\begin{tcolorbox}[notebox]
+\textbf{Points clés (1.5 pt) :}
+\begin{itemize}[itemsep=1pt, topsep=0pt]
+  \item \textbf{0.5 pt} --- \texttt{prepare()} avec \texttt{?} ou \texttt{:genre} (jamais concaténation)
+  \item \textbf{0.5 pt} --- \texttt{execute([\$genre])} et \texttt{fetchAll()}
+  \item \textbf{0.5 pt} --- Explication correcte de la protection anti-injection SQL
+\end{itemize}
+\end{tcolorbox}
+
+\newpage
+
+% ------------------------------------------------------------
+%  EXERCICE 3 --- POO
+% ------------------------------------------------------------
+\begin{tcolorbox}[exbox, title={Exercice 3 \quad POO en PHP \hfill /9 pts}]
+Modélisation des ressources de la vidéothèque \textbf{CampusMedia}.
+\end{tcolorbox}
+
+% ------------------------------------------------------------
+\noindent\textbf{Question 1}\pts{2}
+
+\begin{tcolorbox}[corrbox, title={Corrigé Q1 --- Classe abstraite Ressource}]
+\begin{lstlisting}[language=PHP2]
+abstract class Ressource {
+    protected int    $id;
+    protected string $titre;
+    protected string $dateAjout;
+
+    public function __construct(
+        int $id, string $titre, string $dateAjout
+    ) {
+        $this->id        = $id;
+        $this->titre     = $titre;
+        $this->dateAjout = $dateAjout;
+    }
+
+    abstract public function getType(): string;
+
+    public function __toString(): string {
+        return "[{$this->id}] {$this->titre} | Ajoute le: {$this->dateAjout}";
+    }
+}
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[notebox]
+\textbf{Points clés (2 pts) :}
+\begin{itemize}[itemsep=1pt, topsep=0pt]
+  \item \textbf{0.5 pt} --- Mot-clé \texttt{abstract} sur la classe
+  \item \textbf{0.5 pt} --- Les trois attributs \texttt{protected} avec types corrects
+  \item \textbf{0.5 pt} --- Méthode \texttt{abstract public function getType(): string} (sans corps)
+  \item \textbf{0.5 pt} --- \texttt{\_\_toString()} concrète affichant les 3 attributs
+\end{itemize}
+\end{tcolorbox}
+
+\bigskip
+
+% ------------------------------------------------------------
+\noindent\textbf{Question 2}\pts{1}
+
+\begin{tcolorbox}[corrbox, title={Corrigé Q2 --- Interface Empruntable}]
+\begin{lstlisting}[language=PHP2]
+interface Empruntable {
+    public function emprunter(string $nomEtudiant): bool;
+    public function retourner(): bool;
+    public function getEmprunteur(): ?string;
+}
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[notebox]
+\textbf{Points clés (1 pt) :}
+\begin{itemize}[itemsep=1pt, topsep=0pt]
+  \item \textbf{0.25 pt} --- Mot-clé \texttt{interface}
+  \item \textbf{0.25 pt} --- \texttt{emprunter(string \$nomEtudiant): bool} (signatures exactes)
+  \item \textbf{0.25 pt} --- \texttt{retourner(): bool}
+  \item \textbf{0.25 pt} --- \texttt{getEmprunteur(): ?string} (nullable string)
+\end{itemize}
+\end{tcolorbox}
+
+\bigskip
+
+% ------------------------------------------------------------
+\noindent\textbf{Question 3}\pts{6}
+
+\begin{tcolorbox}[corrbox, title={Corrigé Q3 --- Classe Film (1/2) : structure, constructeur, getter, setter, getType()}]
+\begin{lstlisting}[language=PHP2]
+class Film extends Ressource implements Empruntable {
+
+    private string  $realisateur;
+    private string  $genre;
+    private int     $dureeMinutes;
+    private bool    $estDisponible;
+    private ?string $emprunteur;
+
+    public function __construct(
+        int $id, string $titre, string $dateAjout,
+        string $realisateur, string $genre, int $dureeMinutes
+    ) {
+        parent::__construct($id, $titre, $dateAjout);
+        $this->realisateur   = $realisateur;
+        $this->genre         = $genre;
+        $this->dureeMinutes  = $dureeMinutes;
+        $this->estDisponible = true;
+        $this->emprunteur    = null;
+    }
+
+    // Getter
+    public function getRealisateur(): string {
+        return $this->realisateur;
+    }
+
+    // Setter
+    public function setGenre(string $genre): void {
+        $this->genre = $genre;
+    }
+
+    // Implementation de la methode abstraite
+    public function getType(): string {
+        return "Film";
+    }
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[corrbox, title={Corrigé Q3 --- Classe Film (2/2) : Empruntable + \_\_toString()}]
+\begin{lstlisting}[language=PHP2]
+    // --- Implementation : Interface Empruntable ---
+
+    public function emprunter(string $nomEtudiant): bool {
+        if (!$this->estDisponible) {
+            return false;
+        }
+        $this->estDisponible = false;
+        $this->emprunteur    = $nomEtudiant;
+        return true;
+    }
+
+    public function retourner(): bool {
+        if ($this->estDisponible) {
+            return false;
+        }
+        $this->estDisponible = true;
+        $this->emprunteur    = null;
+        return true;
+    }
+
+    public function getEmprunteur(): ?string {
+        return $this->emprunteur;
+    }
+
+    // --- Surcharge de __toString() ---
+
+    public function __toString(): string {
+        $dispo = $this->estDisponible
+            ? "Disponible"
+            : "Emprunte par " . $this->emprunteur;
+        return parent::__toString()
+             . " | Type : " . $this->getType()
+             . " | Realisateur : " . $this->realisateur
+             . " | Genre : " . $this->genre
+             . " | Duree : " . $this->dureeMinutes . " min"
+             . " | Statut : " . $dispo;
+    }
+}
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[notebox]
+\textbf{Points clés (6 pts) :}
+\begin{itemize}[itemsep=2pt, topsep=2pt]
+  \item \textbf{0.5 pt} --- \texttt{class Film extends Ressource implements Empruntable}
+  \item \textbf{0.5 pt} --- Les 5 attributs propres avec types corrects (\texttt{?string} pour \texttt{emprunteur})
+  \item \textbf{1 pt}   --- Constructeur : appel \texttt{parent::\_\_construct()} + init attributs propres avec valeurs par défaut
+  \item \textbf{0.5 pt} --- Getter \texttt{getRealisateur()} et setter \texttt{setGenre()}
+  \item \textbf{0.5 pt} --- \texttt{getType()} retournant \texttt{"Film"}
+  \item \textbf{1 pt}   --- \texttt{emprunter()} : vérification \texttt{estDisponible} avant d'emprunter
+  \item \textbf{1 pt}   --- \texttt{retourner()} : vérification que le film est bien emprunté
+  \item \textbf{0.5 pt} --- \texttt{getEmprunteur()} retournant \texttt{?string}
+  \item \textbf{0.5 pt} --- \texttt{\_\_toString()} appelant \texttt{parent::\_\_toString()} et ajoutant les attributs propres
+\end{itemize}
+\end{tcolorbox}
+
+\newpage
+
+% ------------------------------------------------------------
+%  QCM --- CORRIGÉ
+% ------------------------------------------------------------
+\begin{tcolorbox}[exbox, title={QCM --- Corrigé \hfill /5 pts (1 pt par question, réponse complète uniquement)}]
+Les cases \cbv\ indiquent les \textbf{bonnes réponses}. Les cases \cbx\ indiquent les mauvaises réponses.\\
+\textit{Une question avec plusieurs bonnes réponses : toutes doivent être cochées ET aucune mauvaise cochée pour obtenir le point.}
+\end{tcolorbox}
+
+\vspace{6pt}
+
+\noindent\textbf{Question 1 (1 pt)} : Laquelle des affirmations est correcte concernant \texttt{session\_start()} ?
+
+\begin{itemize}[leftmargin=2em, itemsep=4pt, topsep=4pt]
+  \item[\cbx] Elle peut être appelée après l'envoi de contenu HTML
+  \item[\cbv] Elle doit être appelée avant tout output, en tout premier
+  \item[\cbv] Elle crée automatiquement un cookie côté client avec l'ID de session
+  \item[\cbx] Elle stocke les données de session dans le navigateur
+\end{itemize}
+
+\begin{tcolorbox}[notebox]
+\textbf{Justification :} \texttt{session\_start()} envoie un header HTTP (\texttt{Set-Cookie: PHPSESSID=...}) --- impossible après du HTML. Elle crée bien un cookie avec l'ID de session. Les données elles-mêmes sont stockées \textbf{côté serveur} (dans \texttt{/tmp/sess\_XXX}).
+\end{tcolorbox}
+
+\vspace{8pt}
+
+\noindent\textbf{Question 2 (1 pt)} : Comment supprimer définitivement un cookie nommé \texttt{token} en PHP ?
+
+\begin{itemize}[leftmargin=2em, itemsep=4pt, topsep=4pt]
+  \item[\cbx] \texttt{unset(\$\_COOKIE['token'])}
+  \item[\cbv] \texttt{setcookie('token', '', time() - 3600, '/')}
+  \item[\cbx] \texttt{deletecookie('token')}
+  \item[\cbx] \texttt{session\_destroy()}
+\end{itemize}
+
+\begin{tcolorbox}[notebox]
+\textbf{Justification :} \texttt{unset(\$\_COOKIE[...])} supprime la variable PHP locale mais \textbf{pas} le cookie dans le navigateur. La seule façon est de renvoyer \texttt{setcookie()} avec une date d'expiration dans le passé. \texttt{deletecookie()} n'existe pas en PHP.
+\end{tcolorbox}
+
+\vspace{8pt}
+
+\noindent\textbf{Question 3 (1 pt)} : Parmi les instructions PDO, laquelle protège contre les injections SQL ?
+
+\begin{itemize}[leftmargin=2em, itemsep=4pt, topsep=4pt]
+  \item[\cbx] \texttt{\$pdo->query("SELECT * FROM films WHERE genre = '\$genre'");}
+  \item[\cbv] \texttt{\$stmt = \$pdo->prepare("SELECT * FROM films WHERE genre = ?"); \$stmt->execute([\$genre]);}
+  \item[\cbx] \texttt{\$pdo->exec("SELECT * FROM films WHERE genre = " . \$genre);}
+  \item[\cbx] \texttt{\$pdo->query("SELECT * FROM films WHERE genre = " . htmlspecialchars(\$genre));}
+\end{itemize}
+
+\begin{tcolorbox}[notebox]
+\textbf{Justification :} Seul le \textit{prepared statement} sépare code SQL et données. \texttt{htmlspecialchars()} protège contre XSS, pas contre SQL injection.
+\end{tcolorbox}
+
+\vspace{8pt}
+
+\noindent\textbf{Question 4 (1 pt)} : Lesquelles des affirmations sur les classes abstraites et interfaces sont vraies ?
+
+\begin{itemize}[leftmargin=2em, itemsep=4pt, topsep=4pt]
+  \item[\cbv] Une classe abstraite peut contenir des méthodes avec implémentation
+  \item[\cbx] Une interface peut contenir des méthodes avec implémentation (corps)
+  \item[\cbx] Une classe peut hériter de plusieurs classes abstraites à la fois en PHP
+  \item[\cbv] Une classe peut implémenter plusieurs interfaces à la fois en PHP
+\end{itemize}
+
+\begin{tcolorbox}[notebox]
+\textbf{Justification :} En PHP, une classe abstraite peut avoir des méthodes concrètes ET abstraites. Une interface ne contient que des signatures (pas de corps, sauf \texttt{default} dans d'autres langages). PHP n'a pas d'héritage multiple pour les classes. Une classe peut implémenter plusieurs interfaces : \texttt{class X implements A, B, C}.
+\end{tcolorbox}
+
+\vspace{8pt}
+
+\noindent\textbf{Question 5 (1 pt)} : Que retourne \texttt{\$stmt->fetch(PDO::FETCH\_ASSOC)} quand aucun résultat ?
+
+\begin{itemize}[leftmargin=2em, itemsep=4pt, topsep=4pt]
+  \item[\cbx] \texttt{[]}
+  \item[\cbx] \texttt{null}
+  \item[\cbv] \texttt{false}
+  \item[\cbx] Une exception \texttt{PDOException}
+\end{itemize}
+
+\begin{tcolorbox}[notebox]
+\textbf{Justification :} La documentation PHP précise que \texttt{fetch()} retourne \texttt{false} s'il n'y a plus de ligne à récupérer. C'est pourquoi on écrit \texttt{if (!\$row = \$stmt->fetch())} ou \texttt{if (\$row === false)}.
+\end{tcolorbox}
+
+\vspace{12pt}
+
+% ------------------------------------------------------------
+%  TABLEAU DE NOTATION
+% ------------------------------------------------------------
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|l|c|c|}
+  \hline
+  \rowcolor{uirblue!20}
+  \textbf{Partie} & \textbf{Barème} & \textbf{Note obtenue} \\
+  \hline
+  Ex.1 Q1 --- connexion.php         & /2   & ............ \\
+  Ex.1 Q2 --- catalogue.php (début) & /1.5 & ............ \\
+  Ex.1 Q3 --- deconnexion.php       & /1.5 & ............ \\
+  \hline
+  \textbf{Exercice 1 total}         & \textbf{/5} & ............ \\
+  \hline
+  Ex.2 Q1 --- getConnexion()        & /1   & ............ \\
+  Ex.2 Q2 --- getAll()              & /2   & ............ \\
+  Ex.2 Q3 --- save()                & /1.5 & ............ \\
+  Ex.2 Q4 --- findByGenre()         & /1.5 & ............ \\
+  \hline
+  \textbf{Exercice 2 total}         & \textbf{/6} & ............ \\
+  \hline
+  Ex.3 Q1 --- Classe abstraite      & /2   & ............ \\
+  Ex.3 Q2 --- Interface             & /1   & ............ \\
+  Ex.3 Q3 --- Classe Film           & /6   & ............ \\
+  \hline
+  \textbf{Exercice 3 total}         & \textbf{/9} & ............ \\
+  \hline
+  QCM (5 questions × 1 pt)         & /5   & ............ \\
+  \hline
+  \rowcolor{uirgold!30}
+  \textbf{TOTAL}                   & \textbf{/20} & ............ \\
+  \hline
+\end{tabular}
+\end{center}
+
+\vspace{8pt}
+\begin{center}
+  \rule{6cm}{0.4pt}\\[4pt]
+  {\large --- Fin du corrigé ---}\\
+  \rule{6cm}{0.4pt}
+\end{center}
+
+\end{document}
