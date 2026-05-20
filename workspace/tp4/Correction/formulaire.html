@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire Utilisateur</title>
+</head>
+<body>
+
+<h2>Formulaire d'inscription</h2>
+<form method="post" action ="traitement.php">
+    <label>Nom :</label>
+    <input type="text" name="nom" required><br><br>
+
+    <label>Email :</label>
+    <input type="email" name="email" required><br><br>
+
+    <label>Login :</label>
+    <input type="text" name="login" required><br><br>
+
+    <label>Password  :</label>
+    <input type="password" name="pwd" required><br><br>
+
+    <label>Type d'utilisateur :</label>
+    <select name="type">
+        <option value="Utilisateur">Utilisateur</option>
+        <option value="Administrateur">Administrateur</option>
+    </select><br><br>
+
+    <label>Genre :</label><br>
+    <input type="radio" name="genre" value="Homme" required> Homme
+    <input type="radio" name="genre" value="Femme" required> Femme <br><br>
+
+    <label>Préférences :</label><br>
+    <input type="checkbox" name="preferences[]" value="Newsletter"> Recevoir la newsletter<br>
+    <input type="checkbox" name="preferences[]" value="Promotions"> Recevoir les promotions<br>
+
+    <label>Description :</label><br>
+    <textarea name="description" rows="4" cols="50"></textarea><br><br>
+
+    <label>Permissions (pour Administrateur/ gérer) :</label> <br>
+    <input type="checkbox" name="permissions[]" value="Newsletter"> Users
+    <input type="checkbox" name="permissions[]" value="Promotions"> Produits
+    <input type="checkbox" name="permissions[]" value="Mises à jour"> Livreur <br>
+
+    <input type="submit" value="Envoyer">
+</form>
+
+</body>
+</html>
